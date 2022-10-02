@@ -10,7 +10,6 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -21,20 +20,30 @@ import HomeIcon from "@mui/icons-material/Home";
 import Home from "./application/pages/Home";
 const drawerWidth = 240;
 
-const menu = {
-  home: {
-    icon: HomeIcon,
+interface MenuOption {
+  name: string;
+  title: string;
+  icon: any;
+  route: string;
+  component: () => JSX.Element;
+}
+
+const menu: MenuOption[] = [
+  {
+    name: "Home",
     title: "Home",
     route: "/",
-    component: Home,
+    icon: HomeIcon,
+    component: Home
   },
-  user: {
-    icon: Person,
+  {
+    name: "User",
     title: "Usuário",
     route: "/user",
-    component: User,
-  },
-};
+    icon: Person,
+    component: User
+  }
+]
 
 // Source: https://mui.com/material-ui/react-drawer/#responsive-drawer
 export default function ResponsiveDrawer(props: any) {
@@ -50,7 +59,7 @@ export default function ResponsiveDrawer(props: any) {
       <Toolbar />
       <Divider />
       <List>
-        {Object.entries(menu).map(([key, content], index) => (
+        {Object.entries(menu).map(([key, content], _) => (
           <ListItem
             key={key}
             // disablePadding
