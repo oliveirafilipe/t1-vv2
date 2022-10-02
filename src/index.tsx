@@ -15,16 +15,20 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Person } from "@mui/icons-material";
+import { Person, LocalShipping, Apartment, People } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import Home from "./application/pages/Home";
+import Operators from "./application/pages/Operators";
+import Deliveries from "./application/pages/Deliveries";
+import Residents from "./application/pages/Residents";
+
 const drawerWidth = 240;
 
 interface MenuOption {
   key: string;
   title: string;
-  icon: any;
   route: string;
+  icon: any;
   component: () => JSX.Element;
 }
 
@@ -42,6 +46,27 @@ const menu: MenuOption[] = [
     route: "/user",
     icon: Person,
     component: User
+  },
+  {
+    key: "Operators",
+    title: "Operadores",
+    route: "/operators",
+    icon: People,
+    component: Operators
+  },
+  {
+    key: "Deliveries",
+    title: "Entregas",
+    route: "/deliveries",
+    icon: LocalShipping,
+    component: Deliveries
+  },
+  {
+    key: "Residents",
+    title: "Moradores",
+    route: "/residents",
+    icon: Apartment,
+    component: Residents
   }
 ]
 
