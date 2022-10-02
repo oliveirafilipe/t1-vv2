@@ -15,12 +15,13 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Person, LocalShipping, Apartment, People } from "@mui/icons-material";
+import { Person, LocalShipping, Apartment, People, AutoStories } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import Home from "./application/pages/Home";
 import Operators from "./application/pages/Operators";
 import Deliveries from "./application/pages/Deliveries";
 import Residents from "./application/pages/Residents";
+import Withdrawals from "./application/pages/Withdrawals";
 
 const drawerWidth = 240;
 
@@ -67,6 +68,13 @@ const menu: MenuOption[] = [
     route: "/residents",
     icon: Apartment,
     component: Residents
+  },
+  {
+    key: "Withdrawals",
+    title: "Retiradas",
+    route: "/withdrawals",
+    icon: AutoStories,
+    component: Withdrawals
   }
 ]
 
