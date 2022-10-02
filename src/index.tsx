@@ -21,7 +21,7 @@ import Home from "./application/pages/Home";
 const drawerWidth = 240;
 
 interface MenuOption {
-  name: string;
+  key: string;
   title: string;
   icon: any;
   route: string;
@@ -30,14 +30,14 @@ interface MenuOption {
 
 const menu: MenuOption[] = [
   {
-    name: "Home",
+    key: "Home",
     title: "Home",
     route: "/",
     icon: HomeIcon,
     component: Home
   },
   {
-    name: "User",
+    key: "User",
     title: "Usuário",
     route: "/user",
     icon: Person,
@@ -59,16 +59,16 @@ export default function ResponsiveDrawer(props: any) {
       <Toolbar />
       <Divider />
       <List>
-        {Object.entries(menu).map(([key, content], _) => (
+        {Object.entries(menu).map(([_, menuOption]) => (
           <ListItem
-            key={key}
+            key={menuOption.key}
             // disablePadding
             component={Link}
-            to={content.route}
+            to={menuOption.route}
           >
             {/* <ListItemButton> */}
-            <ListItemIcon>{React.createElement(content.icon)}</ListItemIcon>
-            <ListItemText primary={content.title} />
+            <ListItemIcon>{React.createElement(menuOption.icon)}</ListItemIcon>
+            <ListItemText primary={menuOption.title} />
             {/* </ListItemButton> */}
           </ListItem>
         ))}
@@ -101,7 +101,7 @@ export default function ResponsiveDrawer(props: any) {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Responsive drawer
+              Controlador de Entregas
             </Typography>
           </Toolbar>
         </AppBar>
@@ -152,13 +152,12 @@ export default function ResponsiveDrawer(props: any) {
           }}
         >
           <Toolbar />
-
           <Routes>
-            {Object.entries(menu).map(([key, content]) => (
+            {Object.entries(menu).map(([_, menuOption]) => (
               <Route
-                key={key}
-                path={content.route}
-                element={React.createElement(content.component)}
+                key={menuOption.key}
+                path={menuOption.route}
+                element={React.createElement(menuOption.component)}
               />
             ))}
           </Routes>
