@@ -1,7 +1,8 @@
+import database, { RESIDENTS_COL } from "../database/database";
 import Resident from "../models/Resident";
 
 export default class API {
-  public static addResident(resident: Resident): boolean {
-    return true;
+  public static addResident(resident: Resident): Resident | null {
+    return database.getCollection(RESIDENTS_COL).insert(resident) as Resident;
   }
 }
