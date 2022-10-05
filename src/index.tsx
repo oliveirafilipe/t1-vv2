@@ -15,7 +15,13 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { Person, LocalShipping, Apartment, People, AutoStories } from "@mui/icons-material";
+import {
+  Person,
+  LocalShipping,
+  Apartment,
+  People,
+  AutoStories,
+} from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import Home from "./application/pages/Home";
 import Operators from "./application/pages/Operators";
@@ -39,44 +45,44 @@ const menu: MenuOption[] = [
     title: "Home",
     route: "/",
     icon: HomeIcon,
-    component: Home
+    component: Home,
   },
   {
     key: "User",
     title: "Usuário",
     route: "/user",
     icon: Person,
-    component: User
+    component: User,
   },
   {
     key: "Operators",
     title: "Operadores",
     route: "/operators",
     icon: People,
-    component: Operators
+    component: Operators,
   },
   {
     key: "Deliveries",
     title: "Entregas",
     route: "/deliveries",
     icon: LocalShipping,
-    component: Deliveries
+    component: Deliveries,
   },
   {
     key: "Residents",
     title: "Moradores",
     route: "/residents",
     icon: Apartment,
-    component: Residents
+    component: Residents,
   },
   {
     key: "Withdrawals",
     title: "Retiradas",
     route: "/withdrawals",
     icon: AutoStories,
-    component: Withdrawals
-  }
-]
+    component: Withdrawals,
+  },
+];
 
 // Source: https://mui.com/material-ui/react-drawer/#responsive-drawer
 export default function ResponsiveDrawer(props: any) {
@@ -208,3 +214,4 @@ root.render(
     <ResponsiveDrawer />
   </React.StrictMode>
 );
+root.render(<React.StrictMode></React.StrictMode>);
