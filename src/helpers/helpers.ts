@@ -1,5 +1,5 @@
-import crypto from "crypto";
+import { v4 } from "uuid";
 
 export function generateRandomId(): string {
-  return crypto.randomUUID();
+  return v4();
 }
