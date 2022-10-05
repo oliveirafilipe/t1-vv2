@@ -1,22 +1,24 @@
 import { Button, FormControl, Paper, TextField } from "@mui/material";
 import { useState } from "react";
-import OperatorsAPI from "../../backend/api/OperatorsAPI";
-import Operator from "../../backend/models/Operator";
+import Operator from "../../../domain/models/Operator";
+import { OperatorService } from "../../../domain/services/OperatorService";
+import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
 
 export default function Operators() {
   const [name, setName] = useState("");
   const [initials, setInitials] = useState("");
-  const [operators, setOperators] = useState(OperatorsAPI.getAll());
+  const operatorService = new OperatorService(new OperatorRepository());
+  const [operators, setOperators] = useState(operatorService.getAll());
   const handleCreateOperator = () => {
     const operator: Operator = {
       name,
       initials,
     };
-    const createdOperator = OperatorsAPI.create(operator);
+    const createdOperator = operatorService.save(operator);
     if (createdOperator) {
       setName("");
       setInitials("");
-      setOperators(OperatorsAPI.getAll());
+      setOperators(operatorService.getAll());
     } else {
       alert("Error creating operator.");
     }
