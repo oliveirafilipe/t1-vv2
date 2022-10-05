@@ -214,4 +214,3 @@ root.render(
     <ResponsiveDrawer />
   </React.StrictMode>
 );
-root.render(<React.StrictMode></React.StrictMode>);
