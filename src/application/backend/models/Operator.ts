@@ -1,1 +1,4 @@
-export default interface Operator {}
+export default interface Operator {
+  id?: string;
+  name: string;
+}
