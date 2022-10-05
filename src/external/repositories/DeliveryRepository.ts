@@ -3,10 +3,10 @@ import { IDeveliveryRepository } from "../../domain/repositories/IDeliveryReposi
 import database, { DELIVERIES_COL } from "../database";
 
 export class DeliverRepository implements IDeveliveryRepository {
-  getAll(): Delivery[] {
+  public getAll(): Delivery[] {
     return database.getCollection(DELIVERIES_COL).find() as Delivery[];
   }
-  save(delivery: Delivery): Delivery {
+  public save(delivery: Delivery): Delivery {
     return database.getCollection(DELIVERIES_COL).insert(delivery) as Delivery;
   }
 }

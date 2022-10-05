@@ -2,17 +2,17 @@ import Resident from "../models/Resident";
 import { IResidentRepository } from "../repositories/IResidentRepository";
 
 export class ResidentService {
-  residentRepo: IResidentRepository;
+  public residentRepo: IResidentRepository;
 
   constructor(residentRepo: IResidentRepository) {
     this.residentRepo = residentRepo;
   }
 
-  save(delivery: Resident) {
+  public save(delivery: Resident): Resident {
     return this.residentRepo.save(delivery);
   }
 
-  getAll() {
+  public getAll(): Resident[] {
     return this.residentRepo.getAll();
   }
 }

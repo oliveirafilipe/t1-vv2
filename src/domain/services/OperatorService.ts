@@ -2,17 +2,17 @@ import Operator from "../models/Operator";
 import { IOperatorRepository } from "../repositories/IOperatorRepository";
 
 export class OperatorService {
-  operatorRepo: IOperatorRepository;
+  public operatorRepo: IOperatorRepository;
 
   constructor(userRepo: IOperatorRepository) {
     this.operatorRepo = userRepo;
   }
 
-  save(operator: Operator) {
+  public save(operator: Operator): Operator {
     return this.operatorRepo.save(operator);
   }
 
-  getAll() {
+  public getAll(): Operator[] {
     return this.operatorRepo.getAll();
   }
 }

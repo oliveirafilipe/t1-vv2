@@ -2,17 +2,17 @@ import Delivery from "../models/Delivery";
 import { IDeveliveryRepository } from "../repositories/IDeliveryRepository";
 
 export class DeliveriesService {
-  deliveryRepo: IDeveliveryRepository;
+  public deliveryRepo: IDeveliveryRepository;
 
   constructor(deliveryRepo: IDeveliveryRepository) {
     this.deliveryRepo = deliveryRepo;
   }
 
-  save(delivery: Delivery) {
+  public save(delivery: Delivery): Delivery {
     return this.deliveryRepo.save(delivery);
   }
 
-  getAll() {
+  public getAll(): Delivery[] {
     return this.deliveryRepo.getAll();
   }
 }

@@ -3,10 +3,10 @@ import { IResidentRepository } from "../../domain/repositories/IResidentReposito
 import database, { RESIDENTS_COL } from "../database";
 
 export class ResidentRepository implements IResidentRepository {
-  getAll(): Resident[] {
+  public getAll(): Resident[] {
     return database.getCollection(RESIDENTS_COL).find() as Resident[];
   }
-  save(resident: Resident): Resident {
+  public save(resident: Resident): Resident {
     return database.getCollection(RESIDENTS_COL).insert(resident) as Resident;
   }
 }
