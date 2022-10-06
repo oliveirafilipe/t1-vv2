@@ -3,7 +3,7 @@ import { IResidentRepository } from "../repositories/IResidentRepository";
 
 export class ResidentService {
   public residentRepo: IResidentRepository;
-  public static MAX_HOUSE_RESIDENTS = 2;
+  public static MAX_HOUSE_RESIDENTS = 8;
 
   constructor(residentRepo: IResidentRepository) {
     this.residentRepo = residentRepo;
