@@ -32,6 +32,16 @@ export class ResidentService {
   }
 
   public toggleActive(id: string): boolean {
-    return this.residentRepo.toggleActive(id);
+    const resident = this.residentRepo.getOne(id);
+    if (!resident) {
+      return false;
+    }
+    const houseResidents = this.residentRepo.getHouseResidents(
+      resident.houseNumber
+    );
+    if (houseResidents.length < ResidentService.MAX_HOUSE_RESIDENTS) {
+      return this.residentRepo.toggleActive(id);
+    }
+    return false;
   }
 }

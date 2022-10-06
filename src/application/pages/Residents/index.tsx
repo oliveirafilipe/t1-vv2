@@ -38,7 +38,7 @@ export default function Residents() {
     if (updated) {
       setResidents(residentService.getAll());
     } else {
-      alert("Error updating resident.");
+      alert("Essa ação não pode ser realizada.");
     }
   };
   return (
