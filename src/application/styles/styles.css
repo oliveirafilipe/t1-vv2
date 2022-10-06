@@ -1,15 +1,19 @@
 .container {
     width: 100%;
-    background-color: #f3f7fb;
+    background-color: aliceblue;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(203, 203, 203, 0.2) 0px 8px 24px;
     border-radius: 10px;
     margin: 0.5rem;
     padding: 1rem;
     column-gap: 0.5rem;
+}
+
+input {
+    background-color: white !important;
 }
 
 h1 {
