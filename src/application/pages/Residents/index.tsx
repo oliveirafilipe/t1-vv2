@@ -20,14 +20,14 @@ export default function Residents() {
       houseNumber,
       active: true,
     };
-    const createdResident = residentService.save(resident);
-    if (createdResident) {
+    try {
+      residentService.save(resident);
       setName("");
       setRG("");
       setHouseNumber("");
       setResidents(residentService.getAll());
-    } else {
-      alert("Error creating resident.");
+    } catch (error: any) {
+      alert(error.message);
     }
   };
   const handleToggleActive = (id: string | undefined) => {

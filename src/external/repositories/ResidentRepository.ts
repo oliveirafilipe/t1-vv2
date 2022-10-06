@@ -7,6 +7,11 @@ export class ResidentRepository implements IResidentRepository {
   public getAll(): Resident[] {
     return database.getCollection(RESIDENTS_COL).find() as Resident[];
   }
+  public getHouseResidents(houseNumber: string): Resident[] {
+    return database
+      .getCollection(RESIDENTS_COL)
+      .find({ houseNumber, active: true }) as Resident[];
+  }
   public getOne(id: string): Resident | undefined {
     return database.getCollection(RESIDENTS_COL).findOne({ id }) as Resident;
   }
