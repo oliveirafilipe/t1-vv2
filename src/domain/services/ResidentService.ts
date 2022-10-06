@@ -34,7 +34,7 @@ export class ResidentService {
   public toggleActive(id: string): boolean {
     const resident = this.residentRepo.getOne(id);
     if (!resident) {
-      return false;
+      throw new Error("Residente não encontrado.");
     }
     if (!resident.active) {
       const houseResidents = this.residentRepo.getHouseResidents(
