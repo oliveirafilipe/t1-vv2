@@ -1,5 +1,5 @@
 import { Button, FormControl, Paper, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Operator from "../../../domain/models/Operator";
 import { OperatorService } from "../../../domain/services/OperatorService";
 import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
@@ -9,7 +9,11 @@ export default function Operators() {
   const [name, setName] = useState("");
   const [initials, setInitials] = useState("");
   const operatorService = new OperatorService(new OperatorRepository());
-  const [operators, setOperators] = useState(operatorService.getAll());
+  const [operators, setOperators] = useState<Operator[]>([]);
+  useEffect(() => {
+    setOperators(operatorService.getAll());
+  }, []);
+
   const handleCreateOperator = () => {
     const operator: Operator = {
       name,
