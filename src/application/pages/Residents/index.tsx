@@ -13,7 +13,6 @@ export default function Residents() {
   useEffect(() => {
     setResidents(residentService.getAll());
   }, []);
-
   const handleCreateResident = () => {
     const resident: Resident = {
       name,
@@ -29,6 +28,17 @@ export default function Residents() {
       setResidents(residentService.getAll());
     } else {
       alert("Error creating resident.");
+    }
+  };
+  const handleToggleActive = (id: string | undefined) => {
+    if (!id) {
+      return;
+    }
+    const updated = residentService.toggleActive(id);
+    if (updated) {
+      setResidents(residentService.getAll());
+    } else {
+      alert("Error updating resident.");
     }
   };
   return (
@@ -74,6 +84,15 @@ export default function Residents() {
             <h3 style={{ margin: "0.3rem" }}>
               Número da Casa: {resident.houseNumber}
             </h3>
+            <Button
+              variant="contained"
+              color={resident.active ? "error" : "info"}
+              onClick={() => {
+                handleToggleActive(resident.id);
+              }}
+            >
+              {resident.active ? "Inativar" : "Ativar"}
+            </Button>
           </Paper>
         ))}
       </div>

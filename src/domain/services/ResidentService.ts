@@ -15,4 +15,12 @@ export class ResidentService {
   public getAll(): Resident[] {
     return this.residentRepo.getAll();
   }
+
+  public getOne(id: string): Resident | undefined {
+    return this.residentRepo.getOne(id);
+  }
+
+  public toggleActive(id: string): boolean {
+    return this.residentRepo.toggleActive(id);
+  }
 }
