@@ -20,10 +20,10 @@ export class ResidentRepository implements IResidentRepository {
     return database.getCollection(RESIDENTS_COL).insert(resident) as Resident;
   }
   public toggleActive(id: string): boolean {
-    const operator = this.getOne(id);
-    if (operator) {
-      operator.active = !operator.active;
-      database.getCollection(RESIDENTS_COL).update(operator);
+    const resident = this.getOne(id);
+    if (resident) {
+      resident.active = !resident.active;
+      database.getCollection(RESIDENTS_COL).update(resident);
       return true;
     }
     return false;
