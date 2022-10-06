@@ -36,12 +36,14 @@ export class ResidentService {
     if (!resident) {
       return false;
     }
-    const houseResidents = this.residentRepo.getHouseResidents(
-      resident.houseNumber
-    );
-    if (houseResidents.length < ResidentService.MAX_HOUSE_RESIDENTS) {
-      return this.residentRepo.toggleActive(id);
+    if (!resident.active) {
+      const houseResidents = this.residentRepo.getHouseResidents(
+        resident.houseNumber
+      );
+      if (houseResidents.length >= ResidentService.MAX_HOUSE_RESIDENTS) {
+        throw new Error("Limite de residentes ativos atingido.");
+      }
     }
-    return false;
+    return this.residentRepo.toggleActive(id);
   }
 }

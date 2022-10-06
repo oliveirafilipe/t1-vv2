@@ -34,11 +34,11 @@ export default function Residents() {
     if (!id) {
       return;
     }
-    const updated = residentService.toggleActive(id);
-    if (updated) {
+    try {
+      residentService.toggleActive(id);
       setResidents(residentService.getAll());
-    } else {
-      alert("Essa ação não pode ser realizada.");
+    } catch (error: any) {
+      alert(error.message);
     }
   };
   return (
