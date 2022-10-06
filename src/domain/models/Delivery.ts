@@ -3,5 +3,5 @@ export default interface Delivery {
   operatorId: string;
   date: Date;
   description: string;
-  houseNumber: number;
+  houseNumber: string;
 }
