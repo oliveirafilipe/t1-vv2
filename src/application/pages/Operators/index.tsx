@@ -12,7 +12,6 @@ export default function Operators() {
   useEffect(() => {
     setOperators(operatorService.getAll());
   }, []);
-
   const handleCreateOperator = () => {
     const operator: Operator = {
       name,

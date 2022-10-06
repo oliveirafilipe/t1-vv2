@@ -15,4 +15,8 @@ export class OperatorService {
   public getAll(): Operator[] {
     return this.operatorRepo.getAll();
   }
+
+  public getOne(id: string): Operator | undefined {
+    return this.operatorRepo.getOne(id);
+  }
 }
