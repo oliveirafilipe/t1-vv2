@@ -21,6 +21,7 @@ import {
   Apartment,
   People,
   AutoStories,
+  Assessment,
 } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import Home from "./application/pages/Home";
@@ -29,6 +30,8 @@ import Deliveries from "./application/pages/Deliveries";
 import Residents from "./application/pages/Residents";
 import Withdrawals from "./application/pages/Withdrawals";
 import database from "./external/database";
+import "./application/styles/index.css";
+import Dashboard from "./application/pages/Dashboard";
 
 const drawerWidth = 240;
 
@@ -83,9 +86,15 @@ const menu: MenuOption[] = [
     icon: AutoStories,
     component: Withdrawals,
   },
+  {
+    key: "Dashboard",
+    title: "Dashboard",
+    route: "/dashboard",
+    icon: Assessment,
+    component: Dashboard,
+  },
 ];
 
-// Source: https://mui.com/material-ui/react-drawer/#responsive-drawer
 export default function ResponsiveDrawer(props: any) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -106,16 +115,9 @@ export default function ResponsiveDrawer(props: any) {
       <Divider />
       <List>
         {Object.entries(menu).map(([_, menuOption]) => (
-          <ListItem
-            key={menuOption.key}
-            // disablePadding
-            component={Link}
-            to={menuOption.route}
-          >
-            {/* <ListItemButton> */}
+          <ListItem key={menuOption.key} component={Link} to={menuOption.route}>
             <ListItemIcon>{React.createElement(menuOption.icon)}</ListItemIcon>
             <ListItemText primary={menuOption.title} />
-            {/* </ListItemButton> */}
           </ListItem>
         ))}
       </List>
@@ -159,14 +161,13 @@ export default function ResponsiveDrawer(props: any) {
               sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
               aria-label="mailbox folders"
             >
-              {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
               <Drawer
                 container={container}
                 variant="temporary"
                 open={mobileOpen}
                 onClose={handleDrawerToggle}
                 ModalProps={{
-                  keepMounted: true, // Better open performance on mobile.
+                  keepMounted: true,
                 }}
                 sx={{
                   display: { xs: "block", sm: "none" },

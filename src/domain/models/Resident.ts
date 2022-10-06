@@ -2,6 +2,6 @@ export default interface Resident {
   id?: string;
   name: string;
   rg: string;
-  houseNumber: number;
+  houseNumber: string;
   active: boolean;
 }

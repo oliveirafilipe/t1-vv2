@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Operator from "../../../domain/models/Operator";
 import { OperatorService } from "../../../domain/services/OperatorService";
 import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
-import "../../styles/styles.css";
 
 export default function Operators() {
   const [name, setName] = useState("");
