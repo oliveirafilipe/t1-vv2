@@ -14,7 +14,7 @@ export class ResidentService {
       resident.houseNumber
     );
     if (houseResidents.length >= ResidentService.MAX_HOUSE_RESIDENTS) {
-      throw new Error("Limite de residentes ativos atingido.");
+      throw new Error("Limite de moradores ativos atingido.");
     }
     return this.residentRepo.save(resident);
   }
@@ -34,14 +34,14 @@ export class ResidentService {
   public toggleActive(id: string): boolean {
     const resident = this.residentRepo.getOne(id);
     if (!resident) {
-      throw new Error("Residente não encontrado.");
+      throw new Error("Morador não encontrado.");
     }
     if (!resident.active) {
       const houseResidents = this.residentRepo.getHouseResidents(
         resident.houseNumber
       );
       if (houseResidents.length >= ResidentService.MAX_HOUSE_RESIDENTS) {
-        throw new Error("Limite de residentes ativos atingido.");
+        throw new Error("Limite de moradores ativos atingido.");
       }
     }
     return this.residentRepo.toggleActive(id);
