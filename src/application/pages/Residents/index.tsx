@@ -10,10 +10,16 @@ export default function Residents() {
   const [houseNumber, setHouseNumber] = useState("");
   const residentService = new ResidentService(new ResidentRepository());
   const [residents, setResidents] = useState<Resident[]>([]);
+
   useEffect(() => {
     setResidents(residentService.getAll());
   }, []);
+
   const handleCreateResident = () => {
+    if ([name, rg, houseNumber].includes("")) {
+      alert("Preencha todos os campos");
+      return;
+    }
     const resident: Resident = {
       name,
       rg,
