@@ -46,4 +46,8 @@ export class ResidentService {
     }
     return this.residentRepo.toggleActive(id);
   }
+
+  public getAllHomes(): string[] {
+    return this.residentRepo.getHomes();
+  }
 }
