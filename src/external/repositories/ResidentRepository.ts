@@ -34,12 +34,11 @@ export class ResidentRepository implements IResidentRepository {
   }
 
   public getHomes(): string[] {
-    const returnValue: string[] = [];
+    const houseNumbers: string[] = [];
     this.getAll().forEach((resident) => {
-      if (!returnValue.includes(resident.houseNumber))
-        returnValue.push(resident.houseNumber);
+      if (!houseNumbers.includes(resident.houseNumber))
+        houseNumbers.push(resident.houseNumber);
     });
-
-    return returnValue;
+    return houseNumbers;
   }
 }

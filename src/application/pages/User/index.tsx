@@ -43,7 +43,7 @@ export default function User() {
             style={{ padding: "1rem", margin: "0.4rem", width: "100%" }}
           >
             <h2 style={{ margin: 0 }}>Nome: {operator.name}</h2>
-            <h2 style={{ margin: 0 }}>Iniciais: {operator.initials}</h2>
+            <h3 style={{ margin: 0 }}>Iniciais: {operator.initials}</h3>
             <Button
               variant="contained"
               onClick={() => {

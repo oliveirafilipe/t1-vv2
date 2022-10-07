@@ -28,7 +28,6 @@ export default function Deliveries() {
   const [home, setHome] = useState<string | null>(null);
   const [receivedTime, setReceivedTime] = useState<string | null>(null);
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
-
   useEffect(() => {
     setHomes(residentService.getAllHomes());
     setDeliveries(deliveryService.getAll());
@@ -37,7 +36,6 @@ export default function Deliveries() {
   const optionsAutocompleteHomes = {
     options: homes,
   };
-
   const handleSubmit = () => {
     for (const iterator of [description, home, loggedUserId, receivedTime]) {
       if (iterator == null || iterator == "") {
@@ -53,14 +51,11 @@ export default function Deliveries() {
     });
     setDeliveries(deliveryService.getAll());
   };
-
   const idToOperator = (operatorId: string) => {
     const operator = operatorService.getOne(operatorId);
     return `${operator?.name} (${operator?.initials})`;
   };
-
   const loggedUserId = UserSession.getCurrentUserId();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -70,7 +65,6 @@ export default function Deliveries() {
       {isLoaded && homes.length === 0 && (
         <p>Nenhum Morador Cadastrado. Cadastre Morador</p>
       )}
-
       {isLoaded && homes.length > 0 && loggedUserId && (
         <Grid container spacing={3}>
           <Grid item lg={6} sm={12}>

@@ -46,7 +46,7 @@ export class ResidentService {
     }
     return this.residentRepo.toggleActive(id);
   }
-  //TODO: Move to HouseService?
+
   public getAllHomes(): string[] {
     return this.residentRepo.getHomes();
   }
