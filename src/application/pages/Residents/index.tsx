@@ -36,12 +36,12 @@ export default function Residents() {
       alert(error.message);
     }
   };
-  const handleToggleActive = (id: string | undefined) => {
+  const handleDeactivate = (id: string | undefined) => {
     if (!id) {
       return;
     }
     try {
-      residentService.toggleActive(id);
+      residentService.deactivate(id);
       setResidents(residentService.getAll());
     } catch (error: any) {
       alert(error.message);
@@ -94,15 +94,20 @@ export default function Residents() {
             <h3 style={{ margin: "0.3rem" }}>
               Número da Casa: {resident.houseNumber}
             </h3>
-            <Button
-              variant="contained"
-              color={resident.active ? "error" : "info"}
-              onClick={() => {
-                handleToggleActive(resident.id);
-              }}
-            >
-              {resident.active ? "Inativar" : "Ativar"}
-            </Button>
+            <h3 style={{ margin: "0.3rem" }}>
+              Status: {resident.active ? "Ativo" : "Inativo"}
+            </h3>
+            {resident.active && (
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  handleDeactivate(resident.id);
+                }}
+              >
+                Inativar
+              </Button>
+            )}
           </Paper>
         ))}
       </div>

@@ -3,8 +3,9 @@ import Resident from "../models/Resident";
 export interface IResidentRepository {
   getAll(): Resident[];
   getHouseResidents(houseNumber: string): Resident[];
-  getOne(id: string): Resident | undefined;
+  getById(id: string): Resident | undefined;
+  getByRg(rg: string): Resident | undefined;
   save(resident: Resident): Resident;
-  toggleActive(id: string): boolean;
+  deactivate(id: string): boolean;
   getHomes(): string[];
 }

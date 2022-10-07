@@ -16,6 +16,10 @@ export class ResidentService {
     if (houseResidents.length >= ResidentService.MAX_HOUSE_RESIDENTS) {
       throw new Error("Limite de moradores ativos atingido.");
     }
+    const sameRG = this.getByRG(resident.rg);
+    if (sameRG !== null) {
+      throw new Error("RG já utilizado.");
+    }
     return this.residentRepo.save(resident);
   }
 
@@ -27,24 +31,20 @@ export class ResidentService {
     return this.residentRepo.getHouseResidents(houseNumber);
   }
 
-  public getOne(id: string): Resident | undefined {
-    return this.residentRepo.getOne(id);
+  public getById(id: string): Resident | undefined {
+    return this.residentRepo.getById(id);
   }
 
-  public toggleActive(id: string): boolean {
-    const resident = this.residentRepo.getOne(id);
+  public getByRG(rg: string): Resident | undefined {
+    return this.residentRepo.getByRg(rg);
+  }
+
+  public deactivate(id: string): boolean {
+    const resident = this.residentRepo.getById(id);
     if (!resident) {
       throw new Error("Morador não encontrado.");
     }
-    if (!resident.active) {
-      const houseResidents = this.residentRepo.getHouseResidents(
-        resident.houseNumber
-      );
-      if (houseResidents.length >= ResidentService.MAX_HOUSE_RESIDENTS) {
-        throw new Error("Limite de moradores ativos atingido.");
-      }
-    }
-    return this.residentRepo.toggleActive(id);
+    return this.residentRepo.deactivate(id);
   }
 
   public getAllHomes(): string[] {

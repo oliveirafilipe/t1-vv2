@@ -14,7 +14,7 @@ export class ResidentRepository implements IResidentRepository {
       .find({ houseNumber, active: true }) as Resident[];
   }
 
-  public getOne(id: string): Resident | undefined {
+  public getById(id: string): Resident | undefined {
     return database.getCollection(RESIDENTS_COL).findOne({ id }) as Resident;
   }
 
@@ -23,10 +23,10 @@ export class ResidentRepository implements IResidentRepository {
     return database.getCollection(RESIDENTS_COL).insert(resident) as Resident;
   }
 
-  public toggleActive(id: string): boolean {
-    const resident = this.getOne(id);
+  public deactivate(id: string): boolean {
+    const resident = this.getById(id);
     if (resident) {
-      resident.active = !resident.active;
+      resident.active = false;
       database.getCollection(RESIDENTS_COL).update(resident);
       return true;
     }
@@ -36,9 +36,13 @@ export class ResidentRepository implements IResidentRepository {
   public getHomes(): string[] {
     const houseNumbers: string[] = [];
     this.getAll().forEach((resident) => {
-      if (!houseNumbers.includes(resident.houseNumber))
+      if (resident.active && !houseNumbers.includes(resident.houseNumber))
         houseNumbers.push(resident.houseNumber);
     });
     return houseNumbers;
+  }
+
+  public getByRg(rg: string): Resident | undefined {
+    return database.getCollection(RESIDENTS_COL).findOne({ rg }) as Resident;
   }
 }
