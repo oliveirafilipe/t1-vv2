@@ -30,18 +30,15 @@ export default function Deliveries() {
   const [receivedTime, setReceivedTime] = useState<string | null>(null);
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
   const [query, setQuery] = useState("");
-
   useEffect(() => {
     setHomes(residentService.getAllHomes());
     setDeliveries(deliveryService.getAll());
     setIsLoaded(true);
   }, []);
-
   useEffect(() => {
     const timeOutId = setTimeout(() => searchDeliveries(query), 500);
     return () => clearTimeout(timeOutId);
   }, [query]);
-
   const searchDeliveries = (query: string) => {
     if (!query) setDeliveries(deliveryService.getAll());
 
@@ -129,6 +126,7 @@ export default function Deliveries() {
       <div className="container" style={{ marginTop: "2rem" }}>
         <h1>Entregas Cadastradas</h1>
         <TextField
+          style={{ marginBottom: "1rem" }}
           id="input-with-icon-textfield"
           label="Procurar por Descrição"
           value={query}
