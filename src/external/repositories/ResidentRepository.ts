@@ -7,18 +7,22 @@ export class ResidentRepository implements IResidentRepository {
   public getAll(): Resident[] {
     return database.getCollection(RESIDENTS_COL).find() as Resident[];
   }
+
   public getHouseResidents(houseNumber: string): Resident[] {
     return database
       .getCollection(RESIDENTS_COL)
       .find({ houseNumber, active: true }) as Resident[];
   }
+
   public getOne(id: string): Resident | undefined {
     return database.getCollection(RESIDENTS_COL).findOne({ id }) as Resident;
   }
+
   public save(resident: Resident): Resident {
     resident.id = generateRandomId();
     return database.getCollection(RESIDENTS_COL).insert(resident) as Resident;
   }
+
   public toggleActive(id: string): boolean {
     const resident = this.getOne(id);
     if (resident) {
@@ -27,5 +31,15 @@ export class ResidentRepository implements IResidentRepository {
       return true;
     }
     return false;
+  }
+
+  public getHomes(): string[] {
+    const returnValue: string[] = [];
+    this.getAll().forEach((resident) => {
+      if (!returnValue.includes(resident.houseNumber))
+        returnValue.push(resident.houseNumber);
+    });
+
+    return returnValue;
   }
 }

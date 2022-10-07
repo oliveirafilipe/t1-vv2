@@ -1,7 +1,7 @@
 export default interface Delivery {
   id?: string;
   operatorId: string;
-  date: Date;
+  date: string;
   description: string;
   houseNumber: string;
 }

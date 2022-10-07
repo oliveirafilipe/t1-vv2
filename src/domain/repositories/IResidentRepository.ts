@@ -6,4 +6,5 @@ export interface IResidentRepository {
   getOne(id: string): Resident | undefined;
   save(resident: Resident): Resident;
   toggleActive(id: string): boolean;
+  getHomes(): string[];
 }

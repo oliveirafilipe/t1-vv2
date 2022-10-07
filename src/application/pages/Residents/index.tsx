@@ -66,7 +66,11 @@ export default function Residents() {
             value={houseNumber}
             onChange={(e) => setHouseNumber(e.target.value)}
           ></TextField>
-          <Button variant="contained" onClick={handleCreateResident}>
+          <Button
+            variant="contained"
+            onClick={handleCreateResident}
+            style={{ marginTop: "1rem" }}
+          >
             Cadastrar
           </Button>
         </FormControl>

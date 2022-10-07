@@ -1,27 +1,18 @@
 .container {
-    width: 100%;
-    background-color: aliceblue;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: rgba(203, 203, 203, 0.2) 0px 8px 24px;
-    border-radius: 10px;
-    margin: 0.5rem;
-    padding: 1rem;
-    column-gap: 0.5rem;
-}
-
-input {
-    background-color: white !important;
+  width: 100%;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(203, 203, 203, 0.2) 0px 8px 24px;
+  border-radius: 10px;
+  margin: 0.5rem;
+  padding: 1rem;
+  column-gap: 0.5rem;
 }
 
 h1 {
-    margin: 0;
-    margin-bottom: 1rem;
-}
-
-button {
-    margin-top: 1rem !important;
-    height: 40px;
+  margin: 0;
+  margin-bottom: 1rem;
 }

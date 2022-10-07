@@ -44,7 +44,11 @@ export default function Operators() {
             value={initials}
             onChange={(e) => setInitials(e.target.value)}
           ></TextField>
-          <Button variant="contained" onClick={handleCreateOperator}>
+          <Button
+            style={{ marginTop: "1rem" }}
+            variant="contained"
+            onClick={handleCreateOperator}
+          >
             Cadastrar
           </Button>
         </FormControl>
