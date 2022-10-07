@@ -15,4 +15,8 @@ export class DeliveriesService {
   public getAll(): Delivery[] {
     return this.deliveryRepo.getAll();
   }
+
+  public filterByDescription(query: string): Delivery[] {
+    return this.deliveryRepo.filterByDescription(query);
+  }
 }

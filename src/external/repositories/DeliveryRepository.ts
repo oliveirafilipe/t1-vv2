@@ -11,4 +11,10 @@ export class DeliverRepository implements IDeveliveryRepository {
     delivery.id = generateRandomId();
     return database.getCollection(DELIVERIES_COL).insert(delivery) as Delivery;
   }
+
+  public filterByDescription(query: string): Delivery[] {
+    return database
+      .getCollection(DELIVERIES_COL)
+      .find({ description: { $regex: [query, "i"] } });
+  }
 }

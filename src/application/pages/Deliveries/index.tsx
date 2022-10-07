@@ -1,10 +1,11 @@
-import { Button, Paper } from "@mui/material";
+import { Button, InputAdornment, Paper } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
+import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import Delivery from "../../../domain/models/Delivery";
 import { DeliveriesService } from "../../../domain/services/DeliveriesService";
@@ -28,13 +29,23 @@ export default function Deliveries() {
   const [home, setHome] = useState<string | null>(null);
   const [receivedTime, setReceivedTime] = useState<string | null>(null);
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
     setHomes(residentService.getAllHomes());
     setDeliveries(deliveryService.getAll());
     setIsLoaded(true);
   }, []);
-  const optionsAutocompleteHomes = {
-    options: homes,
+
+  useEffect(() => {
+    const timeOutId = setTimeout(() => searchDeliveries(query), 500);
+    return () => clearTimeout(timeOutId);
+  }, [query]);
+
+  const searchDeliveries = (query: string) => {
+    if (!query) setDeliveries(deliveryService.getAll());
+
+    setDeliveries(deliveryService.filterByDescription(query));
   };
   const handleSubmit = () => {
     for (const iterator of [description, home, loggedUserId, receivedTime]) {
@@ -91,7 +102,7 @@ export default function Deliveries() {
           <Box width="100%" />
           <Grid item lg={6} sm={12}>
             <Autocomplete
-              {...optionsAutocompleteHomes}
+              options={homes}
               id="open-on-focus"
               openOnFocus
               onChange={(e, v) => {
@@ -117,6 +128,20 @@ export default function Deliveries() {
       )}
       <div className="container" style={{ marginTop: "2rem" }}>
         <h1>Entregas Cadastradas</h1>
+        <TextField
+          id="input-with-icon-textfield"
+          label="Procurar por Descrição"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          variant="standard"
+        />
         {deliveries.map((delivery) => (
           <Paper
             key={delivery.id}
