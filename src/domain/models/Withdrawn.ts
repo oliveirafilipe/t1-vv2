@@ -3,4 +3,5 @@ export default interface Withdrawn {
   date: Date;
   residentId: string;
   deliveryId: string;
+  operatorId: string;
 }
