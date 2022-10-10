@@ -1,22 +1,19 @@
-import Operator from "../models/Operator";
-import { IOperatorRepository } from "../repositories/IOperatorRepository";
+import Withdrawn from "../models/Withdrawn";
+import { IWithdrawnRepository } from "../repositories/IWithdrawnRepository";
 
-export class OperatorService {
-  public operatorRepo: IOperatorRepository;
+export class WithdrawalsService {
+  public withdrawnlRepo: IWithdrawnRepository;
 
-  constructor(userRepo: IOperatorRepository) {
-    this.operatorRepo = userRepo;
+  constructor(withdrawnlRepo: IWithdrawnRepository) {
+    this.withdrawnlRepo = withdrawnlRepo;
   }
 
-  public save(operator: Operator): Operator {
-    return this.operatorRepo.save(operator);
+  public save(withdrawn: Withdrawn): Withdrawn {
+    return this.withdrawnlRepo.save(withdrawn);
   }
 
-  public getAll(): Operator[] {
-    return this.operatorRepo.getAll();
+  public getAll(): Withdrawn[] {
+    return this.withdrawnlRepo.getAll();
   }
 
-  public getOne(id: string): Operator | undefined {
-    return this.operatorRepo.getOne(id);
-  }
 }
