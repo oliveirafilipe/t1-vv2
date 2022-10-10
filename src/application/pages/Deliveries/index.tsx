@@ -56,6 +56,7 @@ export default function Deliveries() {
       description,
       houseNumber: home || "",
       operatorId: loggedUserId,
+      alreadyCollected: false,
     });
     setDeliveries(deliveryService.getAll());
   };

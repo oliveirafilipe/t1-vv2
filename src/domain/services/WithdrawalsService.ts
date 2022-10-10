@@ -1,19 +1,25 @@
 import Withdrawn from "../models/Withdrawn";
 import { IWithdrawnRepository } from "../repositories/IWithdrawnRepository";
+import { DeliveriesService } from "./DeliveriesService";
 
 export class WithdrawalsService {
-  public withdrawnlRepo: IWithdrawnRepository;
+  public withdrawnRepo: IWithdrawnRepository;
+  public deliveryService: DeliveriesService;
 
-  constructor(withdrawnlRepo: IWithdrawnRepository) {
-    this.withdrawnlRepo = withdrawnlRepo;
+  constructor(
+    withdrawnRepo: IWithdrawnRepository,
+    deliveryService: DeliveriesService
+  ) {
+    this.withdrawnRepo = withdrawnRepo;
+    this.deliveryService = deliveryService;
   }
 
   public save(withdrawn: Withdrawn): Withdrawn {
-    return this.withdrawnlRepo.save(withdrawn);
+    this.deliveryService.setCollectedById(withdrawn.deliveryId);
+    return this.withdrawnRepo.save(withdrawn);
   }
 
   public getAll(): Withdrawn[] {
-    return this.withdrawnlRepo.getAll();
+    return this.withdrawnRepo.getAll();
   }
-
 }

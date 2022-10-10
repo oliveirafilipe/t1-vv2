@@ -4,4 +4,5 @@ export default interface Delivery {
   date: string;
   description: string;
   houseNumber: string;
+  alreadyCollected: boolean;
 }

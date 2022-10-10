@@ -25,8 +25,10 @@ const theme = createTheme();
 const residentService = new ResidentService(new ResidentRepository());
 const deliveryService = new DeliveriesService(new DeliverRepository());
 const operatorService = new OperatorService(new OperatorRepository());
-const withdrawalsService = new WithdrawalsService(new WithdrawnRepository());
-
+const withdrawalsService = new WithdrawalsService(
+  new WithdrawnRepository(),
+  deliveryService
+);
 
 export default function Withdrawals() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -38,12 +40,11 @@ export default function Withdrawals() {
   const [withdrawals, setWithdrawals] = useState<Withdrawn[]>([]);
 
   useEffect(() => {
-    setDeliveries(deliveryService.getAll());
+    setDeliveries(deliveryService.getAllNotCollected());
     setWithdrawals(withdrawalsService.getAll());
     setIsLoaded(true);
     setResidents(residentService.getAll());
-}, []);
-
+  }, []);
 
   const handleSubmit = () => {
     for (const iterator of [delivery, resident, loggedUserId, withdrawnTime]) {
@@ -65,7 +66,7 @@ export default function Withdrawals() {
     const operator = operatorService.getOne(operatorId);
     return `${operator?.name} (${operator?.initials})`;
   };
-  
+
   const loggedUserId = UserSession.getCurrentUserId();
   return (
     <ThemeProvider theme={theme}>
@@ -79,63 +80,66 @@ export default function Withdrawals() {
       {isLoaded && deliveries.length === 0 && (
         <p>Nenhuma Entrega Cadastrada. Cadastre Novas Entregas</p>
       )}
-      {isLoaded && residents.length > 0 && loggedUserId && deliveries.length > 0 &&(
-        <Grid container spacing={3}>
-          <Grid item lg={6} sm={12}>
-            <DateTimePicker
-              onChange={setWithdrawnTime}
-              label="Data/Hora da Retirada"
-            />
+      {isLoaded &&
+        residents.length > 0 &&
+        loggedUserId &&
+        deliveries.length > 0 && (
+          <Grid container spacing={3}>
+            <Grid item lg={6} sm={12}>
+              <DateTimePicker
+                onChange={setWithdrawnTime}
+                label="Data/Hora da Retirada"
+              />
+            </Grid>
+            <Box width="100%" />
+            <Grid item lg={6} sm={12}>
+              <Autocomplete
+                getOptionLabel={(option) => option.description}
+                options={deliveries}
+                id="open-on-focus"
+                openOnFocus
+                onChange={(e, v) => {
+                  setDelivery(v);
+                  console.log(v);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label="Entrega a ser retirada"
+                    variant="standard"
+                  />
+                )}
+              />
+            </Grid>
+            <Box width="100%" />
+            <Grid item lg={6} sm={12}>
+              <Autocomplete
+                getOptionLabel={(option) => option.name}
+                options={residents}
+                id="open-on-focus"
+                openOnFocus
+                onChange={(e, v) => {
+                  setResident(v);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label="Nome do residente"
+                    variant="standard"
+                  />
+                )}
+              />
+            </Grid>
+            <Box width="100%" />
+            <Grid item lg={6} sm={12}>
+              <Button variant="contained" onClick={handleSubmit}>
+                Cadastrar
+              </Button>
+            </Grid>
           </Grid>
-          <Box width="100%" />
-          <Grid item lg={6} sm={12}>
-            <Autocomplete
-              getOptionLabel={option => option.description}
-              options={deliveries}
-              id="open-on-focus"
-              openOnFocus
-              onChange={(e, v) => {
-                setDelivery(v);
-                console.log(v);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  required
-                  label="Entrega a ser retirada"
-                  variant="standard"
-                />
-              )}
-            />
-          </Grid>
-          <Box width="100%" />
-          <Grid item lg={6} sm={12}>
-            <Autocomplete
-              getOptionLabel={option => option.name}
-              options={residents}
-              id="open-on-focus"
-              openOnFocus
-              onChange={(e, v) => {
-                setResident(v);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  required
-                  label="Nome do residente"
-                  variant="standard"
-                />
-              )}
-            />
-          </Grid>
-          <Box width="100%" />
-          <Grid item lg={6} sm={12}>
-            <Button variant="contained" onClick={handleSubmit}>
-              Cadastrar
-            </Button>
-          </Grid>
-        </Grid>
-      )}
+        )}
       <div className="container" style={{ marginTop: "2rem" }}>
         <h1>Retiradas Cadastradas</h1>
         {withdrawals.map((withdrawn) => (
@@ -144,8 +148,12 @@ export default function Withdrawals() {
             elevation={2}
             style={{ padding: "1rem", margin: "0.4rem", width: "100%" }}
           >
-            <h2 style={{ margin: 0 }}>Data da retirada: {withdrawn.date.toString()}</h2>
-            <h3 style={{ margin: 0 }}>Resitente que retirou: {withdrawn.residentId}</h3>
+            <h2 style={{ margin: 0 }}>
+              Data da retirada: {withdrawn.date.toString()}
+            </h2>
+            <h3 style={{ margin: 0 }}>
+              Resitente que retirou: {withdrawn.residentId}
+            </h3>
             <h4 style={{ margin: 0 }}>Id da entrega: {withdrawn.deliveryId}</h4>
           </Paper>
         ))}
