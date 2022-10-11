@@ -1,15 +1,15 @@
 import { DeliveriesService } from "../domain/services/DeliveriesService";
 import { OperatorService } from "../domain/services/OperatorService";
 import { WithdrawnService } from "../domain/services/WithdrawnService";
-import { OperatorRepository } from "../external/repositories/OperatorRepository";
-import { WithdrawnRepository } from "../external/repositories/WithdrawnRepository";
 import { StubDeliveryRepository } from "./stubs/DeliveryRepository.stub";
+import { StubOperatorRepository } from "./stubs/OperatorRepository.stub";
+import { StubWithdrawRepository } from "./stubs/WithdrawRepository.stub";
 
 describe("Operator Tests", () => {
   test("should not allow delete operator that has relationships", () => {
     const deliveryService = new DeliveriesService(new StubDeliveryRepository());
     const withdrawService = new WithdrawnService(
-      new WithdrawnRepository(),
+      new StubWithdrawRepository(),
       deliveryService
     );
 
@@ -17,7 +17,7 @@ describe("Operator Tests", () => {
     withdrawService.getByOperator = () => new Array(1);
 
     const operatorService = new OperatorService(
-      new OperatorRepository(),
+      new StubOperatorRepository(),
       deliveryService,
       withdrawService
     );
