@@ -42,7 +42,7 @@ export class ResidentRepository implements IResidentRepository {
     return houseNumbers;
   }
 
-  public getByRg(rg: string): Resident | undefined {
-    return database.getCollection(RESIDENTS_COL).findOne({ rg }) as Resident;
+  public getByRg(rg: string): Resident | null {
+    return database.getCollection(RESIDENTS_COL).findOne({ rg });
   }
 }
