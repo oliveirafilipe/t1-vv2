@@ -32,6 +32,7 @@ import Withdrawals from "./application/pages/Withdrawals";
 import database from "./external/database";
 import "./application/styles/index.css";
 import Dashboard from "./application/pages/Dashboard";
+import seed from "./application/seed";
 
 const drawerWidth = 240;
 
@@ -99,9 +100,15 @@ export default function ResponsiveDrawer(props: any) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const whenDatabaseLoaded = () => {
+    seed();
+    setIsLoaded(true);
+  };
+
   useEffect(() => {
     database.loadDatabase({}, (err) =>
-      err ? console.log(err) : setIsLoaded(true)
+      err ? console.log(err) : whenDatabaseLoaded()
     );
   }, []);
 
