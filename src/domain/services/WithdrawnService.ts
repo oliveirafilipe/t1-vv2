@@ -2,7 +2,7 @@ import Withdrawn from "../models/Withdrawn";
 import { IWithdrawnRepository } from "../repositories/IWithdrawnRepository";
 import { DeliveriesService } from "./DeliveriesService";
 
-export class WithdrawalsService {
+export class WithdrawnService {
   public withdrawnRepo: IWithdrawnRepository;
   public deliveryService: DeliveriesService;
 
@@ -27,5 +27,13 @@ export class WithdrawalsService {
 
   public getAll(): Withdrawn[] {
     return this.withdrawnRepo.getAll();
+  }
+
+  public getByDeliveryId(deliveryId: string): Withdrawn | undefined {
+    return this.withdrawnRepo.getByDeliveryId(deliveryId);
+  }
+
+  public getLastXDays(days: number): Withdrawn[] {
+    return this.withdrawnRepo.getLastXDays(days);
   }
 }

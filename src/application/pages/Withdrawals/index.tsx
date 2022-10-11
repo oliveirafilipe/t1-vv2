@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import Delivery from "../../../domain/models/Delivery";
 import { DeliveriesService } from "../../../domain/services/DeliveriesService";
 import { ResidentService } from "../../../domain/services/ResidentService";
-import { WithdrawalsService } from "../../../domain/services/WithdrawalsService";
-import { DeliverRepository } from "../../../external/repositories/DeliveryRepository";
+import { WithdrawnService } from "../../../domain/services/WithdrawnService";
+import { DeliveryRepository } from "../../../external/repositories/DeliveryRepository";
 import { ResidentRepository } from "../../../external/repositories/ResidentRepository";
 import { WithdrawnRepository } from "../../../external/repositories/WithdrawnRepository";
 import DateTimePicker from "../../components/DateTimePicker";
@@ -19,8 +19,8 @@ import Resident from "../../../domain/models/Resident";
 
 const theme = createTheme();
 const residentService = new ResidentService(new ResidentRepository());
-const deliveryService = new DeliveriesService(new DeliverRepository());
-const withdrawalsService = new WithdrawalsService(
+const deliveryService = new DeliveriesService(new DeliveryRepository());
+const withdrawnService = new WithdrawnService(
   new WithdrawnRepository(),
   deliveryService
 );
@@ -33,25 +33,22 @@ export default function Withdrawals() {
   const [residents, setResidents] = useState<Resident[]>([]);
   const [withdrawnTime, setWithdrawnTime] = useState<Date | null>(null);
   const [withdrawals, setWithdrawals] = useState<any[]>([]);
-
-  const getWithdraws = () => {
-    const withdraws = withdrawalsService.getAll();
+  const getWithdrawals = () => {
+    const withdrawals = withdrawnService.getAll();
     setWithdrawals(
-      withdraws.map((withdraw) => {
-        const delivery = deliveryService.getById(withdraw.deliveryId);
-        const resident = residentService.getById(withdraw.residentId);
-        return { ...withdraw, delivery, resident };
+      withdrawals.map((withdrawn) => {
+        const delivery = deliveryService.getById(withdrawn.deliveryId);
+        const resident = residentService.getById(withdrawn.residentId);
+        return { ...withdrawn, delivery, resident };
       })
     );
   };
-
   useEffect(() => {
     setDeliveries(deliveryService.getAllNotCollected());
-    getWithdraws();
+    getWithdrawals();
     setIsLoaded(true);
     setResidents(residentService.getAll());
   }, []);
-
   const handleSubmit = () => {
     for (const iterator of [delivery, resident, loggedUserId, withdrawnTime]) {
       if (iterator === null || iterator === "") {
@@ -59,13 +56,13 @@ export default function Withdrawals() {
         return;
       }
     }
-    withdrawalsService.save({
+    withdrawnService.save({
       deliveryId: delivery?.id || "",
       date: withdrawnTime || new Date(),
       residentId: resident?.id || "",
       operatorId: loggedUserId,
     });
-    getWithdraws();
+    getWithdrawals();
   };
   const loggedUserId = UserSession.getCurrentUserId();
   return (

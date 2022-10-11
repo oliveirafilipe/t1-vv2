@@ -30,6 +30,10 @@ export class DeliveriesService {
     return this.deliveryRepo.getAllNotCollected();
   }
 
+  public getAllCollected(): Delivery[] {
+    return this.deliveryRepo.getAllCollected();
+  }
+
   public getById(id: string) {
     return this.deliveryRepo.getById(id);
   }

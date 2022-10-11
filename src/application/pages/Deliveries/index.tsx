@@ -11,7 +11,7 @@ import Delivery from "../../../domain/models/Delivery";
 import { DeliveriesService } from "../../../domain/services/DeliveriesService";
 import { OperatorService } from "../../../domain/services/OperatorService";
 import { ResidentService } from "../../../domain/services/ResidentService";
-import { DeliverRepository } from "../../../external/repositories/DeliveryRepository";
+import { DeliveryRepository } from "../../../external/repositories/DeliveryRepository";
 import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
 import { ResidentRepository } from "../../../external/repositories/ResidentRepository";
 import DateTimePicker from "../../components/DateTimePicker";
@@ -19,7 +19,7 @@ import UserSession from "../../session/user";
 
 const theme = createTheme();
 const residentService = new ResidentService(new ResidentRepository());
-const deliveryService = new DeliveriesService(new DeliverRepository());
+const deliveryService = new DeliveriesService(new DeliveryRepository());
 const operatorService = new OperatorService(new OperatorRepository());
 
 export default function Deliveries() {

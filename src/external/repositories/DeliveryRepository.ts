@@ -3,7 +3,7 @@ import { IDeliveryRepository } from "../../domain/repositories/IDeliveryReposito
 import { generateRandomId } from "../../helpers/helpers";
 import database, { DELIVERIES_COL } from "../database";
 
-export class DeliverRepository implements IDeliveryRepository {
+export class DeliveryRepository implements IDeliveryRepository {
   public getAll(): Delivery[] {
     return database.getCollection(DELIVERIES_COL).find() as Delivery[];
   }
@@ -27,6 +27,12 @@ export class DeliverRepository implements IDeliveryRepository {
     return database
       .getCollection(DELIVERIES_COL)
       .find({ alreadyCollected: false }) as Delivery[];
+  }
+
+  public getAllCollected(): Delivery[] {
+    return database
+      .getCollection(DELIVERIES_COL)
+      .find({ alreadyCollected: true }) as Delivery[];
   }
 
   public update(delivery: Delivery): Delivery {

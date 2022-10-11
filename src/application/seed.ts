@@ -4,8 +4,8 @@ import Resident from "../domain/models/Resident";
 import { DeliveriesService } from "../domain/services/DeliveriesService";
 import { OperatorService } from "../domain/services/OperatorService";
 import { ResidentService } from "../domain/services/ResidentService";
-import { WithdrawalsService } from "../domain/services/WithdrawalsService";
-import { DeliverRepository } from "../external/repositories/DeliveryRepository";
+import { WithdrawnService } from "../domain/services/WithdrawnService";
+import { DeliveryRepository } from "../external/repositories/DeliveryRepository";
 import { OperatorRepository } from "../external/repositories/OperatorRepository";
 import { ResidentRepository } from "../external/repositories/ResidentRepository";
 import { WithdrawnRepository } from "../external/repositories/WithdrawnRepository";
@@ -30,9 +30,9 @@ function collectsSeed(
   savedResidents: Resident[],
   savedDeliveries: Delivery[]
 ) {
-  const withdrawalsService = new WithdrawalsService(
+  const withdrawalsService = new WithdrawnService(
     new WithdrawnRepository(),
-    new DeliveriesService(new DeliverRepository())
+    new DeliveriesService(new DeliveryRepository())
   );
 
   for (let i = 0; i < Math.floor(savedDeliveries.length / 3); i++) {
@@ -57,7 +57,7 @@ function deliveriesSeed(
   savedOperators: Operator[],
   savedResidents: Resident[]
 ) {
-  const deliveryService = new DeliveriesService(new DeliverRepository());
+  const deliveryService = new DeliveriesService(new DeliveryRepository());
   const deliveries = [
     "Abraçadeira lamp. Fluor",
     "Acabamento para Registro 3/4″",
