@@ -3,13 +3,23 @@ import { DeliveriesService } from "../../../domain/services/DeliveriesService";
 import { WithdrawnService } from "../../../domain/services/WithdrawnService";
 import { DeliveryRepository } from "../../../external/repositories/DeliveryRepository";
 import { WithdrawnRepository } from "../../../external/repositories/WithdrawnRepository";
+import { ResidentService } from "../../../domain/services/ResidentService";
+import { OperatorService } from "../../../domain/services/OperatorService";
+import { ResidentRepository } from "../../../external/repositories/ResidentRepository";
+import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
+
 
 export default function Dashboard() {
   const deliveryService = new DeliveriesService(new DeliveryRepository());
+  const operatorService = new OperatorService(new OperatorRepository());
+  const residentService = new ResidentService(new ResidentRepository());
+
   const withdrawnService = new WithdrawnService(
     new WithdrawnRepository(),
-    deliveryService
+    deliveryService,
   );
+  
+
   const last7DaysAmount = withdrawnService.getLastXDays(7).length;
   const deliveriesNotCollectedAmount =
     deliveryService.getAllNotCollected().length;
@@ -43,7 +53,7 @@ export default function Dashboard() {
       if (!withdrawn) {
         return;
       }
-      csvRows += `${delivery.id};${delivery.date};${delivery.description};${delivery.houseNumber};${withdrawn.operatorId};${withdrawn.date};${withdrawn.residentId}\n`;
+      csvRows += `${delivery.id};${delivery.date};${delivery.description};${delivery.houseNumber};${operatorService.getOne(withdrawn.operatorId)?.name};${withdrawn.date};${residentService.getById(withdrawn.residentId)?.name}\n`;
     });
     const csv = csvHeader + csvRows;
     const blob = new Blob([csv], { type: "text/csv" });
