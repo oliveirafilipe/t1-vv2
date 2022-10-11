@@ -14,7 +14,7 @@ export class ResidentRepository implements IResidentRepository {
       .find({ houseNumber, active: true }) as Resident[];
   }
 
-  public getById(id: string): Resident | undefined {
+  public getById(id: string): Resident | null {
     return database.getCollection(RESIDENTS_COL).findOne({ id }) as Resident;
   }
 

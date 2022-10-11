@@ -8,7 +8,7 @@ export class StubResidentRepository implements IResidentRepository {
   getHouseResidents(houseNumber: string): Resident[] {
     throw new Error("getHouseResidents: Method not implemented.");
   }
-  getById(id: string): Resident | undefined {
+  getById(id: string): Resident | null {
     throw new Error("getById: Method not implemented.");
   }
   getByRg(rg: string): Resident | null {

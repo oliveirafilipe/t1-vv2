@@ -31,7 +31,7 @@ export class ResidentService {
     return this.residentRepo.getHouseResidents(houseNumber);
   }
 
-  public getById(id: string): Resident | undefined {
+  public getById(id: string): Resident | null {
     return this.residentRepo.getById(id);
   }
 
