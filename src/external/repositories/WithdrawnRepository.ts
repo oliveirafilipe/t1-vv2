@@ -35,4 +35,10 @@ export class WithdrawnRepository implements IWithdrawnRepository {
       .getCollection(WITHDRAWALS_COL)
       .insert(withdrawn) as Withdrawn;
   }
+
+  public getByOperator(operatorId: string): Withdrawn[] {
+    return database
+      .getCollection(WITHDRAWALS_COL)
+      .find({ operatorId }) as Withdrawn[];
+  }
 }

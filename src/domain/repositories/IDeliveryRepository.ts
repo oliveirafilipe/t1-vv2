@@ -5,6 +5,7 @@ export interface IDeliveryRepository {
   getAllNotCollected(): Delivery[];
   getAllCollected(): Delivery[];
   getById(id: string): Delivery;
+  getByOperator(operatorId: string): Delivery[];
   save(delivery: Delivery): Delivery;
   update(delivery: Delivery): Delivery;
   filterByDescription(query: string): Delivery[];

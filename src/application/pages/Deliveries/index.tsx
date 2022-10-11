@@ -16,11 +16,17 @@ import { OperatorRepository } from "../../../external/repositories/OperatorRepos
 import { ResidentRepository } from "../../../external/repositories/ResidentRepository";
 import DateTimePicker from "../../components/DateTimePicker";
 import UserSession from "../../session/user";
+import { WithdrawnService } from "../../../domain/services/WithdrawnService";
+import { WithdrawnRepository } from "../../../external/repositories/WithdrawnRepository";
 
 const theme = createTheme();
 const residentService = new ResidentService(new ResidentRepository());
 const deliveryService = new DeliveriesService(new DeliveryRepository());
-const operatorService = new OperatorService(new OperatorRepository());
+const operatorService = new OperatorService(
+  new OperatorRepository(),
+  deliveryService,
+  new WithdrawnService(new WithdrawnRepository(), deliveryService)
+);
 
 export default function Deliveries() {
   const [homes, setHomes] = useState<string[]>([]);

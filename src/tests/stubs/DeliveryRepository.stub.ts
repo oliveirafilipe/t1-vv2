@@ -2,6 +2,12 @@ import Delivery from "../../domain/models/Delivery";
 import { IDeliveryRepository } from "../../domain/repositories/IDeliveryRepository";
 
 export class StubDeliveryRepository implements IDeliveryRepository {
+  getAllCollected(): Delivery[] {
+    throw new Error("Method not implemented.");
+  }
+  getByOperator(operatorId: string): Delivery[] {
+    throw new Error("Method not implemented.");
+  }
   getAll(): Delivery[] {
     throw new Error("getAll: Method not implemented.");
   }

@@ -14,4 +14,7 @@ export class OperatorRepository implements IOperatorRepository {
     operator.id = generateRandomId();
     return database.getCollection(OPERATORS_COL).insert(operator) as Operator;
   }
+  public delete(operator: Operator): Operator {
+    return database.getCollection(OPERATORS_COL).remove(operator);
+  }
 }

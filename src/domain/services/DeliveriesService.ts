@@ -41,4 +41,8 @@ export class DeliveriesService {
   public filterByDescription(query: string): Delivery[] {
     return this.deliveryRepo.filterByDescription(query);
   }
+
+  public getByOperator(operatorId: string): Delivery[] {
+    return this.deliveryRepo.getByOperator(operatorId);
+  }
 }

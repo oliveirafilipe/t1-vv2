@@ -12,6 +12,12 @@ export class DeliveryRepository implements IDeliveryRepository {
     return database.getCollection(DELIVERIES_COL).findOne({ id }) as Delivery;
   }
 
+  public getByOperator(operatorId: string): Delivery[] {
+    return database
+      .getCollection(DELIVERIES_COL)
+      .find({ operatorId }) as Delivery[];
+  }
+
   public save(delivery: Delivery): Delivery {
     delivery.id = generateRandomId();
     return database.getCollection(DELIVERIES_COL).insert(delivery) as Delivery;

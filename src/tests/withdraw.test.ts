@@ -1,13 +1,13 @@
 import Withdrawn from "../domain/models/Withdrawn";
 import { DeliveriesService } from "../domain/services/DeliveriesService";
-import { WithdrawalsService } from "../domain/services/WithdrawalsService";
-import { DeliverRepository } from "../external/repositories/DeliveryRepository";
+import { WithdrawnService } from "../domain/services/WithdrawnService";
+import { DeliveryRepository } from "../external/repositories/DeliveryRepository";
 import { StubWithdrawRepository } from "./stubs/WithdrawRepository.stub";
 
 describe("Withdraw Test", () => {
   test("should throw error for withdraw date earlier than delivery", () => {
-    const deliveryService = new DeliveriesService(new DeliverRepository());
-    const withdrawService = new WithdrawalsService(
+    const deliveryService = new DeliveriesService(new DeliveryRepository());
+    const withdrawService = new WithdrawnService(
       new StubWithdrawRepository(),
       deliveryService
     );

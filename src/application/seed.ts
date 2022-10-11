@@ -270,7 +270,12 @@ function residentsSeed(): Resident[] {
 }
 
 function operatorsSeed() {
-  const operatorService = new OperatorService(new OperatorRepository());
+  const deliveryService = new DeliveriesService(new DeliveryRepository());
+  const operatorService = new OperatorService(
+    new OperatorRepository(),
+    deliveryService,
+    new WithdrawnService(new WithdrawnRepository(), deliveryService)
+  );
 
   const operators = [
     "Bianca Moraes",
@@ -293,6 +298,11 @@ function operatorsSeed() {
       })
     );
   }
+
+  operatorService.save({
+    name: "Sem Relacionamentos",
+    initials: "SR",
+  });
   return savedOperators;
 }
 

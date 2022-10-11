@@ -1,14 +1,23 @@
 import { Button, FormControl, Paper, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import Operator from "../../../domain/models/Operator";
+import { DeliveriesService } from "../../../domain/services/DeliveriesService";
 import { OperatorService } from "../../../domain/services/OperatorService";
+import { WithdrawnService } from "../../../domain/services/WithdrawnService";
+import { DeliveryRepository } from "../../../external/repositories/DeliveryRepository";
 import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
+import { WithdrawnRepository } from "../../../external/repositories/WithdrawnRepository";
 
 export default function Operators() {
   const [name, setName] = useState("");
   const [initials, setInitials] = useState("");
-  const operatorService = new OperatorService(new OperatorRepository());
   const [operators, setOperators] = useState<Operator[]>([]);
+  const deliveryService = new DeliveriesService(new DeliveryRepository());
+  const operatorService = new OperatorService(
+    new OperatorRepository(),
+    deliveryService,
+    new WithdrawnService(new WithdrawnRepository(), deliveryService)
+  );
   useEffect(() => {
     setOperators(operatorService.getAll());
   }, []);
@@ -24,6 +33,15 @@ export default function Operators() {
       setOperators(operatorService.getAll());
     } else {
       alert("Error creating operator.");
+    }
+  };
+
+  const handleDeleteOperator = (operator: Operator) => {
+    try {
+      operatorService.delete(operator);
+      setOperators(operatorService.getAll());
+    } catch (e) {
+      alert(e);
     }
   };
   return (
@@ -63,6 +81,15 @@ export default function Operators() {
           >
             <h2 style={{ margin: 0 }}>Nome: {operator.name}</h2>
             <h3 style={{ margin: "0.3rem" }}>Iniciais: {operator.initials}</h3>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                handleDeleteOperator(operator);
+              }}
+            >
+              Deletar
+            </Button>
           </Paper>
         ))}
       </div>
