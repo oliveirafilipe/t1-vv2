@@ -35,7 +35,7 @@ export class ResidentService {
     return this.residentRepo.getById(id);
   }
 
-  public getByRG(rg: string): Resident | undefined {
+  public getByRG(rg: string): Resident | null {
     return this.residentRepo.getByRg(rg);
   }
 
