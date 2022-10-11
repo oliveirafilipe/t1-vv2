@@ -53,7 +53,9 @@ export default function Dashboard() {
       if (!withdrawn) {
         return;
       }
-      csvRows += `${delivery.id};${delivery.date};${delivery.description};${delivery.houseNumber};${operatorService.getOne(withdrawn.operatorId)?.name};${withdrawn.date};${residentService.getById(withdrawn.residentId)?.name}\n`;
+      console.log(operatorService.getOne(withdrawn.operatorId)?.name)
+      console.log(residentService.getById(withdrawn.residentId)?.name)
+      csvRows += `${delivery.id};${delivery.date};${delivery.description};${delivery.houseNumber};${operatorService.getOne(withdrawn.operatorId)?.initials};${withdrawn.date};${residentService.getById(withdrawn.residentId)?.name}\n`;
     });
     const csv = csvHeader + csvRows;
     const blob = new Blob([csv], { type: "text/csv" });
