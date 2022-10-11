@@ -1,4 +1,4 @@
-import { Button, InputAdornment, Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,11 +8,9 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import Delivery from "../../../domain/models/Delivery";
 import { DeliveriesService } from "../../../domain/services/DeliveriesService";
-import { OperatorService } from "../../../domain/services/OperatorService";
 import { ResidentService } from "../../../domain/services/ResidentService";
 import { WithdrawalsService } from "../../../domain/services/WithdrawalsService";
 import { DeliverRepository } from "../../../external/repositories/DeliveryRepository";
-import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
 import { ResidentRepository } from "../../../external/repositories/ResidentRepository";
 import { WithdrawnRepository } from "../../../external/repositories/WithdrawnRepository";
 import DateTimePicker from "../../components/DateTimePicker";
@@ -22,7 +20,6 @@ import Resident from "../../../domain/models/Resident";
 const theme = createTheme();
 const residentService = new ResidentService(new ResidentRepository());
 const deliveryService = new DeliveriesService(new DeliverRepository());
-const operatorService = new OperatorService(new OperatorRepository());
 const withdrawalsService = new WithdrawalsService(
   new WithdrawnRepository(),
   deliveryService
@@ -57,7 +54,7 @@ export default function Withdrawals() {
 
   const handleSubmit = () => {
     for (const iterator of [delivery, resident, loggedUserId, withdrawnTime]) {
-      if (iterator == null || iterator == "") {
+      if (iterator === null || iterator === "") {
         alert("Preencha todos os campos");
         return;
       }
@@ -70,12 +67,6 @@ export default function Withdrawals() {
     });
     getWithdraws();
   };
-
-  const idToOperator = (operatorId: string) => {
-    const operator = operatorService.getOne(operatorId);
-    return `${operator?.name} (${operator?.initials})`;
-  };
-
   const loggedUserId = UserSession.getCurrentUserId();
   return (
     <ThemeProvider theme={theme}>
