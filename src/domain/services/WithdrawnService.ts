@@ -18,7 +18,7 @@ export class WithdrawnService {
     const delivery = this.deliveryService.getById(withdrawn.deliveryId);
     if (new Date(delivery.date) >= withdrawn.date) {
       throw new Error(
-        "Data da retirada não pode ser menor que a data da entrega"
+        "Data da retirada não pode ser menor ou igual a data da entrega"
       );
     }
     this.deliveryService.setCollectedById(withdrawn.deliveryId);
