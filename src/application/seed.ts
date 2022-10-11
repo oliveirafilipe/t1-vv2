@@ -16,16 +16,12 @@ export default function seed() {
     return;
   }
   localStorage.setItem("seedApplied", "1");
-
   const originalRandom = Math.random;
-
   Math.random = randomSeedSin();
-
   const savedOperators = operatorsSeed();
   const savedResidents = residentsSeed();
   const savedDeliveries = deliveriesSeed(savedOperators, savedResidents);
   collectsSeed(savedOperators, savedResidents, savedDeliveries);
-
   Math.random = originalRandom;
 }
 
@@ -42,16 +38,12 @@ function collectsSeed(
   for (let i = 0; i < Math.floor(savedDeliveries.length / 3); i++) {
     const delivery =
       savedDeliveries[getRandomArbitrary(0, savedDeliveries.length)];
-
     const operator =
       savedOperators[getRandomArbitrary(0, savedOperators.length)];
-
     const resident =
       savedResidents[getRandomArbitrary(0, savedResidents.length)];
-
     const maxRandomDate = new Date(new Date(delivery.date).getTime());
     maxRandomDate.setDate(maxRandomDate.getDate() + 5);
-
     withdrawalsService.save({
       date: randomDate(new Date(delivery.date), maxRandomDate, 0, 24),
       deliveryId: delivery.id || "",
@@ -60,13 +52,12 @@ function collectsSeed(
     });
   }
 }
+
 function deliveriesSeed(
   savedOperators: Operator[],
   savedResidents: Resident[]
 ) {
   const deliveryService = new DeliveriesService(new DeliverRepository());
-
-  //www.tudoconstrucao.com/lista-de-material-de-construcao-para-obra-basico/#Materiais_de_construcao_para_acabamento
   const deliveries = [
     "Abraçadeira lamp. Fluor",
     "Acabamento para Registro 3/4″",
@@ -119,9 +110,7 @@ function deliveriesSeed(
     "Tinta Acrílica",
     "Tinta Esmalte",
   ];
-
   const savedDeliveries: Delivery[] = [];
-
   for (const delivery of deliveries) {
     savedDeliveries.push(
       deliveryService.save({
@@ -143,9 +132,9 @@ function deliveriesSeed(
   }
   return savedDeliveries;
 }
+
 function residentsSeed(): Resident[] {
   const residentService = new ResidentService(new ResidentRepository());
-
   const residents = [
     "Samuel Pinto",
     "Maria Luiza Moura",
@@ -248,7 +237,6 @@ function residentsSeed(): Resident[] {
     "Arthur da Luz",
     "Sr. Theo Moraes",
   ];
-
   const countPerHouseNumber: { [key: number]: number } = {};
   const savedResidents = [];
   for (const resident of residents) {
@@ -262,9 +250,7 @@ function residentsSeed(): Resident[] {
       countPerHouseNumber[houseNumber] + 1 >=
       ResidentService.MAX_HOUSE_RESIDENTS
     );
-
     countPerHouseNumber[houseNumber]++;
-
     while (true) {
       try {
         const savedResident = residentService.save({
@@ -298,9 +284,7 @@ function operatorsSeed() {
     "Kaique Ramos",
     "Calebe da Cunha",
   ];
-
   const savedOperators: Operator[] = [];
-
   for (const operator of operators) {
     savedOperators.push(
       operatorService.save({
@@ -309,7 +293,6 @@ function operatorsSeed() {
       })
     );
   }
-
   return savedOperators;
 }
 
@@ -317,7 +300,6 @@ function getRandomArbitrary(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-//stackoverflow.com/a/31379050/13152732
 function randomDate(
   start: Date,
   end: Date,
@@ -333,8 +315,6 @@ function randomDate(
 }
 
 function randomSeedSin(seed = Math.PI / 4) {
-  // ~3.4 million b4 repeat.
-  // https://stackoverflow.com/a/19303725/1791917
   return () => {
     const x = Math.sin(seed++) * 10000;
     return x - Math.floor(x);
