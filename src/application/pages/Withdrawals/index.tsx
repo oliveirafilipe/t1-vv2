@@ -5,10 +5,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
-import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import Delivery from "../../../domain/models/Delivery";
-import Withdrawn from "../../../domain/models/Withdrawn";
 import { DeliveriesService } from "../../../domain/services/DeliveriesService";
 import { OperatorService } from "../../../domain/services/OperatorService";
 import { ResidentService } from "../../../domain/services/ResidentService";
@@ -37,11 +35,22 @@ export default function Withdrawals() {
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
   const [residents, setResidents] = useState<Resident[]>([]);
   const [withdrawnTime, setWithdrawnTime] = useState<Date | null>(null);
-  const [withdrawals, setWithdrawals] = useState<Withdrawn[]>([]);
+  const [withdrawals, setWithdrawals] = useState<any[]>([]);
+
+  const getWithdraws = () => {
+    const withdraws = withdrawalsService.getAll();
+    setWithdrawals(
+      withdraws.map((withdraw) => {
+        const delivery = deliveryService.getById(withdraw.deliveryId);
+        const resident = residentService.getById(withdraw.residentId);
+        return { ...withdraw, delivery, resident };
+      })
+    );
+  };
 
   useEffect(() => {
     setDeliveries(deliveryService.getAllNotCollected());
-    setWithdrawals(withdrawalsService.getAll());
+    getWithdraws();
     setIsLoaded(true);
     setResidents(residentService.getAll());
   }, []);
@@ -59,7 +68,7 @@ export default function Withdrawals() {
       residentId: resident?.id || "",
       operatorId: loggedUserId,
     });
-    setWithdrawals(withdrawalsService.getAll());
+    getWithdraws();
   };
 
   const idToOperator = (operatorId: string) => {
@@ -152,9 +161,11 @@ export default function Withdrawals() {
               Data da retirada: {withdrawn.date.toString()}
             </h2>
             <h3 style={{ margin: 0 }}>
-              Resitente que retirou: {withdrawn.residentId}
+              Resitente que retirou: {withdrawn.resident.name}
             </h3>
-            <h4 style={{ margin: 0 }}>Id da entrega: {withdrawn.deliveryId}</h4>
+            <h4 style={{ margin: 0 }}>
+              Descrição da entrega: {withdrawn.delivery.description}
+            </h4>
           </Paper>
         ))}
       </div>
