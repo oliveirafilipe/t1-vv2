@@ -22,7 +22,8 @@ const residentService = new ResidentService(new ResidentRepository());
 const deliveryService = new DeliveriesService(new DeliveryRepository());
 const withdrawnService = new WithdrawnService(
   new WithdrawnRepository(),
-  deliveryService
+  deliveryService,
+  residentService
 );
 
 export default function Withdrawals() {

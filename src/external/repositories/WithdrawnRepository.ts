@@ -5,7 +5,12 @@ import database, { WITHDRAWALS_COL } from "../database";
 
 export class WithdrawnRepository implements IWithdrawnRepository {
   public getAll(): Withdrawn[] {
-    return database.getCollection(WITHDRAWALS_COL).find() as Withdrawn[];
+    return database
+      .getCollection(WITHDRAWALS_COL)
+      .find()
+      .sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      ) as Withdrawn[];
   }
 
   public getByDeliveryId(deliveryId: string): Withdrawn | undefined {
