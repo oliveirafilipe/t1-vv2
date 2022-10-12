@@ -50,10 +50,6 @@ export class WithdrawnService {
     return this.withdrawnRepo.getByDeliveryId(deliveryId);
   }
 
-  public getLastXDays(days: number): Withdrawn[] {
-    return this.withdrawnRepo.getLastXDays(days);
-  }
-
   public getByOperator(operatorId: string): Withdrawn[] {
     return this.withdrawnRepo.getByOperator(operatorId);
   }

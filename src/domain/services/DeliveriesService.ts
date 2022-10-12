@@ -34,6 +34,10 @@ export class DeliveriesService {
     return this.deliveryRepo.getAllCollected();
   }
 
+  public getLastXDays(days: number): Delivery[] {
+    return this.deliveryRepo.getLastXDays(days);
+  }
+
   public getById(id: string) {
     return this.deliveryRepo.getById(id);
   }

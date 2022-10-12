@@ -2,9 +2,6 @@ import Withdrawn from "../../domain/models/Withdrawn";
 import { IWithdrawnRepository } from "../../domain/repositories/IWithdrawnRepository";
 
 export class StubWithdrawRepository implements IWithdrawnRepository {
-  getLastXDays(days: number): Withdrawn[] {
-    throw new Error("Method not implemented.");
-  }
   getByDeliveryId(deliveryId: string): Withdrawn | undefined {
     throw new Error("Method not implemented.");
   }

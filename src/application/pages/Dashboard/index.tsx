@@ -8,19 +8,15 @@ import { OperatorService } from "../../../domain/services/OperatorService";
 import { ResidentRepository } from "../../../external/repositories/ResidentRepository";
 import { OperatorRepository } from "../../../external/repositories/OperatorRepository";
 
-
 export default function Dashboard() {
   const deliveryService = new DeliveriesService(new DeliveryRepository());
   const operatorService = new OperatorService(new OperatorRepository());
   const residentService = new ResidentService(new ResidentRepository());
-
   const withdrawnService = new WithdrawnService(
     new WithdrawnRepository(),
-    deliveryService,
+    deliveryService
   );
-  
-
-  const last7DaysAmount = withdrawnService.getLastXDays(7).length;
+  const last7DaysAmount = deliveryService.getLastXDays(7).length;
   const deliveriesNotCollectedAmount =
     deliveryService.getAllNotCollected().length;
   const collectedDeliveries = deliveryService.getAllCollected();
@@ -53,9 +49,13 @@ export default function Dashboard() {
       if (!withdrawn) {
         return;
       }
-      console.log(operatorService.getOne(withdrawn.operatorId)?.name)
-      console.log(residentService.getById(withdrawn.residentId)?.name)
-      csvRows += `${delivery.id};${delivery.date};${delivery.description};${delivery.houseNumber};${operatorService.getOne(withdrawn.operatorId)?.initials};${withdrawn.date};${residentService.getById(withdrawn.residentId)?.name}\n`;
+      console.log(operatorService.getOne(withdrawn.operatorId)?.name);
+      console.log(residentService.getById(withdrawn.residentId)?.name);
+      csvRows += `${delivery.id};${delivery.date};${delivery.description};${
+        delivery.houseNumber
+      };${operatorService.getOne(withdrawn.operatorId)?.initials};${
+        withdrawn.date
+      };${residentService.getById(withdrawn.residentId)?.name}\n`;
     });
     const csv = csvHeader + csvRows;
     const blob = new Blob([csv], { type: "text/csv" });

@@ -35,6 +35,21 @@ export class DeliveryRepository implements IDeliveryRepository {
       .find({ alreadyCollected: false }) as Delivery[];
   }
 
+  public getLastXDays(days: number): Delivery[] {
+    const today = new Date();
+    const lastXDays: Delivery[] = [];
+    this.getAll().forEach((delivery) => {
+      const deliveryDate = new Date(delivery.date);
+      const daysDifference = Math.floor(
+        (deliveryDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
+      );
+      if (daysDifference <= days) {
+        lastXDays.push(delivery);
+      }
+    });
+    return lastXDays;
+  }
+
   public getAllCollected(): Delivery[] {
     return database
       .getCollection(DELIVERIES_COL)

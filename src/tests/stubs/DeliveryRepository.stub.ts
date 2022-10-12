@@ -14,6 +14,9 @@ export class StubDeliveryRepository implements IDeliveryRepository {
   getAllNotCollected(): Delivery[] {
     throw new Error("getAllNotCollected: Method not implemented.");
   }
+  getLastXDays(days: number): Delivery[] {
+    throw new Error("getLastXDays: Method not implemented.");
+  }
   getById(id: string): Delivery {
     throw new Error("getById: Method not implemented.");
   }
