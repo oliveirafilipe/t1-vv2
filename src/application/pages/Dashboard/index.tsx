@@ -51,11 +51,9 @@ export default function Dashboard() {
       }
       console.log(operatorService.getOne(withdrawn.operatorId)?.name);
       console.log(residentService.getById(withdrawn.residentId)?.name);
-      csvRows += `${delivery.id};${delivery.date};${delivery.description};${
-        delivery.houseNumber
-      };${operatorService.getOne(withdrawn.operatorId)?.initials};${
-        withdrawn.date
-      };${residentService.getById(withdrawn.residentId)?.name}\n`;
+      csvRows += `${delivery.id};${delivery.date};${delivery.description};${delivery.houseNumber
+        };${operatorService.getOne(withdrawn.operatorId)?.initials};${withdrawn.date
+        };${residentService.getById(withdrawn.residentId)?.name}\n`;
     });
     const csv = csvHeader + csvRows;
     const blob = new Blob([csv], { type: "text/csv" });
@@ -73,14 +71,14 @@ export default function Dashboard() {
         style={{ padding: "1rem", margin: "0.4rem", width: "100%" }}
       >
         <h2 style={{ margin: 0 }}>Estatísticas</h2>
-        <h3 style={{ margin: "0.3rem" }}>
+        <h3 id="last7Days" style={{ margin: "0.3rem" }}>
           Número de entregas nos últimos 7 dias: {last7DaysAmount}
         </h3>
-        <h3 style={{ margin: "0.3rem" }}>
+        <h3 id="toBeWithdrawn" style={{ margin: "0.3rem" }}>
           Quantidade de entregas ainda não retiradas:{" "}
           {deliveriesNotCollectedAmount}
         </h3>
-        <h3 style={{ margin: "0.3rem" }}>
+        <h3 id="averageTime" style={{ margin: "0.3rem" }}>
           Tempo médio entre registro e retirada de entregas:{" "}
           {getAverageCollectionTime()} dias
         </h3>

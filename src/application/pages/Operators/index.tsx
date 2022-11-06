@@ -31,6 +31,7 @@ export default function Operators() {
       setName("");
       setInitials("");
       setOperators(operatorService.getAll());
+      alert("Operador criado com sucesso");
     } else {
       alert("Error creating operator.");
     }
@@ -40,6 +41,7 @@ export default function Operators() {
     try {
       operatorService.delete(operator);
       setOperators(operatorService.getAll());
+      alert("Operador deletado com sucesso");
     } catch (e) {
       alert(e);
     }

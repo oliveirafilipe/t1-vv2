@@ -63,6 +63,7 @@ export default function Withdrawals() {
       residentId: resident?.id || "",
       operatorId: loggedUserId,
     });
+    alert("Retirada cadastrada com sucesso");
     getWithdrawals();
   };
   const loggedUserId = UserSession.getCurrentUserId();

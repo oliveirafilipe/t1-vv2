@@ -32,6 +32,7 @@ export default function Residents() {
       setRG("");
       setHouseNumber("");
       setResidents(residentService.getAll());
+      alert("Morador cadastrado com sucesso");
     } catch (error: any) {
       alert(error.message);
     }
@@ -43,6 +44,7 @@ export default function Residents() {
     try {
       residentService.deactivate(id);
       setResidents(residentService.getAll());
+      alert("Morador desativado com sucesso");
     } catch (error: any) {
       alert(error.message);
     }

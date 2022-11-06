@@ -52,7 +52,7 @@ export default function Deliveries() {
   };
   const handleSubmit = () => {
     for (const iterator of [description, home, loggedUserId, receivedTime]) {
-      if (iterator == null || iterator == "") {
+      if (iterator == null || iterator === "") {
         alert("Preencha todos os campos");
         return;
       }
@@ -64,6 +64,7 @@ export default function Deliveries() {
       operatorId: loggedUserId,
       alreadyCollected: false,
     });
+    alert("Entrega cadastrada com sucesso");
     setDeliveries(deliveryService.getAll());
   };
   const idToOperator = (operatorId: string) => {
