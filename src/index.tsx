@@ -96,13 +96,17 @@ const menu: MenuOption[] = [
   },
 ];
 
+const APPLY_SEED = false;
+
 export default function ResponsiveDrawer(props: any) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const whenDatabaseLoaded = () => {
-    seed();
+    if (APPLY_SEED) {
+      seed();
+    }
     setIsLoaded(true);
   };
 
