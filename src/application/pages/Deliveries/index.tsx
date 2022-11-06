@@ -102,13 +102,14 @@ export default function Deliveries() {
             <DateTimePicker
               onChange={setReceivedTime}
               label="Data/Hora do Recebimento"
+              id="timepicker"
             />
           </Grid>
           <Box width="100%" />
           <Grid item lg={6} sm={12}>
             <Autocomplete
               options={homes}
-              id="open-on-focus"
+              id="home-picker"
               openOnFocus
               onChange={(e, v) => {
                 setHome(v);
@@ -119,13 +120,18 @@ export default function Deliveries() {
                   required
                   label="Casa do Destinatário"
                   variant="standard"
+                  id="home-picker-field"
                 />
               )}
             />
           </Grid>
           <Box width="100%" />
           <Grid item lg={6} sm={12}>
-            <Button variant="contained" onClick={handleSubmit}>
+            <Button
+              variant="contained"
+              onClick={handleSubmit}
+              id="submit-button"
+            >
               Cadastrar
             </Button>
           </Grid>

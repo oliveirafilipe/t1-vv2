@@ -60,6 +60,7 @@ export default function Residents() {
             variant="filled"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            id="name"
           ></TextField>
           <TextField
             style={{ marginBottom: "1rem" }}
@@ -67,17 +68,20 @@ export default function Residents() {
             variant="filled"
             value={rg}
             onChange={(e) => setRG(e.target.value)}
+            id="rg"
           ></TextField>
           <TextField
             label="Número da Casa"
             variant="filled"
             value={houseNumber}
             onChange={(e) => setHouseNumber(e.target.value)}
+            id="house-number"
           ></TextField>
           <Button
             variant="contained"
             onClick={handleCreateResident}
             style={{ marginTop: "1rem" }}
+            id="submit-button"
           >
             Cadastrar
           </Button>
@@ -103,6 +107,7 @@ export default function Residents() {
               <Button
                 variant="contained"
                 color="error"
+                id="deactivate-button"
                 onClick={() => {
                   handleDeactivate(resident.id);
                 }}

@@ -88,6 +88,7 @@ export default function Withdrawals() {
               <DateTimePicker
                 onChange={setWithdrawnTime}
                 label="Data/Hora da Retirada"
+                id="timepicker"
               />
             </Grid>
             <Box width="100%" />
@@ -95,7 +96,7 @@ export default function Withdrawals() {
               <Autocomplete
                 getOptionLabel={(option) => option.description}
                 options={deliveries}
-                id="open-on-focus"
+                id="withdraw-picker"
                 openOnFocus
                 onChange={(e, v) => {
                   setDelivery(v);
@@ -107,6 +108,7 @@ export default function Withdrawals() {
                     required
                     label="Entrega a ser retirada"
                     variant="standard"
+                    id="withdraw-picker-field"
                   />
                 )}
               />
@@ -116,7 +118,7 @@ export default function Withdrawals() {
               <Autocomplete
                 getOptionLabel={(option) => option.name}
                 options={residents}
-                id="open-on-focus"
+                id="resident-picker"
                 openOnFocus
                 onChange={(e, v) => {
                   setResident(v);
@@ -127,13 +129,18 @@ export default function Withdrawals() {
                     required
                     label="Nome do residente"
                     variant="standard"
+                    id="resident-picker-field"
                   />
                 )}
               />
             </Grid>
             <Box width="100%" />
             <Grid item lg={6} sm={12}>
-              <Button variant="contained" onClick={handleSubmit}>
+              <Button
+                variant="contained"
+                onClick={handleSubmit}
+                id="submit-button"
+              >
                 Cadastrar
               </Button>
             </Grid>

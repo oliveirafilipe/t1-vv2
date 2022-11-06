@@ -57,17 +57,20 @@ export default function Operators() {
             variant="filled"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            id="name"
           ></TextField>
           <TextField
             label="Iniciais"
             variant="filled"
             value={initials}
             onChange={(e) => setInitials(e.target.value)}
+            id="initials"
           ></TextField>
           <Button
             style={{ marginTop: "1rem" }}
             variant="contained"
             onClick={handleCreateOperator}
+            id="submit-button"
           >
             Cadastrar
           </Button>
@@ -86,6 +89,7 @@ export default function Operators() {
             <Button
               variant="contained"
               color="error"
+              id="delete-button"
               onClick={() => {
                 handleDeleteOperator(operator);
               }}
