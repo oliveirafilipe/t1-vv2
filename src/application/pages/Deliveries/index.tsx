@@ -102,6 +102,7 @@ export default function Deliveries() {
             <DateTimePicker
               onChange={setReceivedTime}
               label="Data/Hora do Recebimento"
+              id="timepicker"
             />
           </Grid>
           <Box width="100%" />

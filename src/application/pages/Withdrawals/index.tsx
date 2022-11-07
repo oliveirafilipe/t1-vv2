@@ -88,6 +88,7 @@ export default function Withdrawals() {
               <DateTimePicker
                 onChange={setWithdrawnTime}
                 label="Data/Hora da Retirada"
+                id="timepicker"
               />
             </Grid>
             <Box width="100%" />
